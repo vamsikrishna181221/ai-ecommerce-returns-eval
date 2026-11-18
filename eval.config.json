@@ -1,0 +1,7 @@
+{
+  "task": "You are an ecommerce returns eligibility evaluator. Analyze the customer's order details and determine whether the return should be APPROVE, DENY, or ESCALATE based on the store's return policy.\n\nRules:\n1. If the item is defective, APPROVE regardless of the delivery date.\n2. If the item is a gift card or digital download, respond ESCALATE.\n3. If the item is marked final sale, DENY unless it is defective.\n4. For other physical products, APPROVE if the return request is within 30 days of delivery. Otherwise, DENY.\n\nReturn only one label: APPROVE, DENY, or ESCALATE.\n\nOrder details: {input}",
+  "scorer": "exact",
+  "rubric": "",
+  "temperature": 0,
+  "threshold": 0.8
+}
