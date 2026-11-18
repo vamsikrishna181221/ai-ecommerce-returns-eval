@@ -1,32 +1,57 @@
 {
-    "total_cases": 3,
-    "passed": 3,
-    "failed": 0,
-    "average_score": 1.0,
-    "results": [
-        {
-            "case_id": "TC01",
-            "input": "delivered 2026-07-02, today 2026-08-20, final sale, condition new",
-            "expected": "DENY",
-            "actual": "DENY",
-            "score": 1.0,
-            "status": "PASS"
-        },
-        {
-            "case_id": "TC02",
-            "input": "delivered 2026-08-01, today 2026-08-20, condition defective",
-            "expected": "APPROVE",
-            "actual": "APPROVE",
-            "score": 1.0,
-            "status": "PASS"
-        },
-        {
-            "case_id": "TC03",
-            "input": "delivered 2026-08-05, today 2026-08-20, item digital gift card",
-            "expected": "ESCALATE",
-            "actual": "ESCALATE",
-            "score": 1.0,
-            "status": "PASS"
-        }
-    ]
+  "task": "You are an ecommerce returns eligibility evaluator. Analyze the customer's order details and determine whether the return should be APPROVE, DENY, or ESCALATE based on the store's return policy.\n\nRules:\n1. If the item is defective, APPROVE regardless of the delivery date.\n2. If the item is a gift card or digital download, respond ESCALATE.\n3. If the item is marked final sale, DENY unless it is defective.\n4. For other physical products, APPROVE if the return request is within 30 days of delivery. Otherwise, DENY.\n\nOUTPUT FORMAT (STRICT):\n- Return exactly one word.\n- The only allowed outputs are APPROVE, DENY, or ESCALATE.\n- Do not provide explanations, reasoning, markdown, punctuation, or additional text.\n- Never leave the response empty.\n\nOrder details: {input}",
+  "scorer": "exact",
+  "provider": "openrouter",
+  "model": "openrouter/free",
+  "temperature": 0,
+  "threshold": 0.8,
+  "results": [
+    {
+      "input": "delivered 2026-07-02, today 2026-08-20, final sale, condition new",
+      "expected": "DENY",
+      "output": "DENY",
+      "passed": true,
+      "reason": "exact match"
+    },
+    {
+      "input": "delivered 2026-08-01, today 2026-08-20, condition defective",
+      "expected": "APPROVE",
+      "output": "APPROVE",
+      "passed": true,
+      "reason": "exact match"
+    },
+    {
+      "input": "delivered 2026-08-05, today 2026-08-20, item digital gift card",
+      "expected": "ESCALATE",
+      "output": "ESCALATE",
+      "passed": true,
+      "reason": "exact match"
+    },
+    {
+      "input": "delivered 2026-08-10, today 2026-08-20, condition new",
+      "expected": "APPROVE",
+      "output": "APPROVE",
+      "passed": true,
+      "reason": "exact match"
+    },
+    {
+      "input": "delivered 2026-07-15, today 2026-08-20, condition new",
+      "expected": "DENY",
+      "output": "DENY",
+      "passed": true,
+      "reason": "exact match"
+    },
+    {
+      "input": "delivered 2026-07-01, today 2026-08-20, final sale, condition defective",
+      "expected": "APPROVE",
+      "output": "APPROVE",
+      "passed": true,
+      "reason": "exact match"
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "total": 6,
+    "passRate": 1.0
+  }
 }

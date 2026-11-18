@@ -40,7 +40,7 @@ def model_name() -> str:
     return os.environ.get("MODEL_NAME") or default
 
 
-def call_model(prompt: str, system: str | None = None, temperature: float = 0, max_tokens: int = 512) -> str:
+def call_model(prompt: str, system: str | None = None, temperature: float = 0, max_tokens: int = 1024) -> str:
     """Send one prompt (plus an optional system prompt) and return the reply text."""
     cache_dir = os.environ.get("EVAL_CACHE_DIR")
     key = hashlib.sha256(json.dumps([provider(), model_name(), system, prompt, temperature]).encode()).hexdigest()
@@ -76,8 +76,17 @@ def _call(prompt, system, temperature, max_tokens):
     messages = ([{"role": "system", "content": system}] if system else []) + [{"role": "user", "content": prompt}]
     body = {"model": model_name(), "messages": messages, "temperature": temperature, "max_tokens": max_tokens}
     data = _post(f"{base}/chat/completions", body, {"authorization": f"Bearer {_key(env)}"})
-    return data["choices"][0]["message"]["content"] or ""
 
+    message = data["choices"][0]["message"]
+    content = message.get("content")
+
+    if not content:
+        raise RuntimeError(
+        f"OpenRouter returned empty content. "
+        f"Finish reason: {data['choices'][0].get('finish_reason')}. "
+        f"Response: {data}"
+       )
+    return content
 
 def _key(env: str) -> str:
     value = os.environ.get(env)
