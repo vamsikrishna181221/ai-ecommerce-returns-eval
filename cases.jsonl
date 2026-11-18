@@ -1,3 +1,6 @@
 {"input": "delivered 2026-07-02, today 2026-08-20, final sale, condition new", "expected": "DENY"}
 {"input": "delivered 2026-08-01, today 2026-08-20, condition defective", "expected": "APPROVE"}
 {"input": "delivered 2026-08-05, today 2026-08-20, item digital gift card", "expected": "ESCALATE"}
+{"input": "delivered 2026-08-10, today 2026-08-20, condition new", "expected": "APPROVE"}
+{"input": "delivered 2026-07-15, today 2026-08-20, condition new", "expected": "DENY"}
+{"input": "delivered 2026-07-01, today 2026-08-20, final sale, condition defective", "expected": "APPROVE"}
