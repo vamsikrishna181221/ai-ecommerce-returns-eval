@@ -1,0 +1,32 @@
+{
+    "total_cases": 3,
+    "passed": 3,
+    "failed": 0,
+    "average_score": 1.0,
+    "results": [
+        {
+            "case_id": "TC01",
+            "input": "delivered 2026-07-02, today 2026-08-20, final sale, condition new",
+            "expected": "DENY",
+            "actual": "DENY",
+            "score": 1.0,
+            "status": "PASS"
+        },
+        {
+            "case_id": "TC02",
+            "input": "delivered 2026-08-01, today 2026-08-20, condition defective",
+            "expected": "APPROVE",
+            "actual": "APPROVE",
+            "score": 1.0,
+            "status": "PASS"
+        },
+        {
+            "case_id": "TC03",
+            "input": "delivered 2026-08-05, today 2026-08-20, item digital gift card",
+            "expected": "ESCALATE",
+            "actual": "ESCALATE",
+            "score": 1.0,
+            "status": "PASS"
+        }
+    ]
+}
